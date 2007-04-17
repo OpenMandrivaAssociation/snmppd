@@ -1,7 +1,7 @@
 Summary:	SNMP proxy daemon
 Name:		snmppd
 Version:	0.5.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPL
 Group:		System/Servers
 URL:		http://bubble.nsys.by/
@@ -9,6 +9,7 @@ Source0:	http://bubble.nsys.by/projects/snmppd/%{name}-%{version}.tar.bz2
 Source1:	%{name}.init
 Source2:	http://bubble.nsys.by/projects/libsplit/libsplit-0.2.tar.bz2
 Source3:	check_snmpp.conf.README
+Source4:	check_snmpp.cfg
 Patch1:		snmppd-0.5.1-pidfile_location_fix.diff
 Patch2:		snmppd-0.5.1-config_file_location_fix.diff
 Patch3:		snmppd-0.5.1-antibork_1.diff
@@ -27,11 +28,10 @@ Requires(postun): rpm-helper
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
-snmppd is an SNMP proxy daemon that is designed to work with
-Nagios. It loads MIBs upon startup, listens on a TCP socket for
-SNMP GET requests, polls the specified host, and returns the value
-to caller process. The caller process is usually the Nagios plugin
-check_snmpp. 
+snmppd is an SNMP proxy daemon that is designed to work with Nagios. It loads
+MIBs upon startup, listens on a TCP socket for SNMP GET requests, polls the
+specified host, and returns the value to caller process. The caller process is
+usually the Nagios plugin check_snmpp. 
 
 %package -n	nagios-check_snmpp
 Summary:	snmpp plugin for nagios
@@ -44,8 +44,8 @@ Requires:	%{name} = %{version}
 %description -n	nagios-check_snmpp
 check_snmpp plugin for nagios (replacement for check_snmp)
 
-This plugin uses the 'snmpget' command included with the
-net-snmp-utils package.
+This plugin uses the 'snmpget' command included with the net-snmp-utils
+package.
 
 %prep
 
@@ -57,9 +57,11 @@ net-snmp-utils package.
 
 cp %{SOURCE1} snmppd.init
 cp %{SOURCE3} check_snmpp.conf.README
+cp %{SOURCE4} check_snmpp.cfg
 
 # lib64 fix
 perl -pi -e "s|/lib\b|/%{_lib}|g" configure*
+perl -pi -e "s|_LIBDIR_|%{_libdir}|g" *.cfg
 
 %build
 rm -f configure
@@ -86,11 +88,14 @@ make \
 
 %makeinstall_std
 
+install -d %{buildroot}%{_sysconfdir}/nagios/plugins.d
 install -d %{buildroot}%{_initrddir}
 install -d %{buildroot}%{_localstatedir}/snmppd
 install -d %{buildroot}/var/run/snmppd
 
 install -m0755 snmppd.init %{buildroot}%{_initrddir}/snmppd
+
+install -m0644 check_snmpp.cfg %{buildroot}%{_sysconfdir}/nagios/plugins.d/
 
 # clean up
 rm -rf %{buildroot}%{_includedir}
@@ -107,6 +112,12 @@ rm -rf %{buildroot}%{_includedir}
 %postun
 %_postun_userdel snmppd
 
+%post -n nagios-check_snmpp
+/sbin/service nagios condrestart > /dev/null 2>/dev/null || :
+
+%postun -n nagios-check_snmpp
+/sbin/service nagios condrestart > /dev/null 2>/dev/null || :
+
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
@@ -122,6 +133,5 @@ rm -rf %{buildroot}%{_includedir}
 %files -n nagios-check_snmpp
 %defattr(-,root,root)
 %doc check_snmpp.conf.README
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/nagios/plugins.d/check_snmpp.cfg
 %{_libdir}/nagios/plugins/check_snmpp
-
-
