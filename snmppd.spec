@@ -34,7 +34,7 @@ specified host, and returns the value to caller process. The caller process is
 usually the Nagios plugin check_snmpp. 
 
 %package -n	nagios-check_snmpp
-Summary:	snmpp plugin for nagios
+Summary:	Snmpp plugin for nagios
 Group:		Networking/Other
 Requires:	nagios
 Requires:	nagios-plugins
