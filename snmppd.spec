@@ -90,7 +90,7 @@ make \
 
 install -d %{buildroot}%{_sysconfdir}/nagios/plugins.d
 install -d %{buildroot}%{_initrddir}
-install -d %{buildroot}%{_localstatedir}/snmppd
+install -d %{buildroot}%{_localstatedir}/lib/snmppd
 install -d %{buildroot}/var/run/snmppd
 
 install -m0755 snmppd.init %{buildroot}%{_initrddir}/snmppd
@@ -101,7 +101,7 @@ install -m0644 check_snmpp.cfg %{buildroot}%{_sysconfdir}/nagios/plugins.d/
 rm -rf %{buildroot}%{_includedir}
 
 %pre
-%_pre_useradd snmppd %{_localstatedir}/snmppd /bin/sh
+%_pre_useradd snmppd %{_localstatedir}/lib/snmppd /bin/sh
 
 %post
 %_post_service snmppd
@@ -127,7 +127,7 @@ rm -rf %{buildroot}%{_includedir}
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/snmppd.conf
 %attr(755,root,root) %{_initrddir}/snmppd
 %{_sbindir}/snmppd
-%attr(0755,snmppd,snmppd) %dir %{_localstatedir}/snmppd
+%attr(0755,snmppd,snmppd) %dir %{_localstatedir}/lib/snmppd
 %attr(0755,snmppd,snmppd) %dir /var/run/snmppd
 
 %files -n nagios-check_snmpp
