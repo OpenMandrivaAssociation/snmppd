@@ -1,7 +1,7 @@
 Summary:	SNMP proxy daemon
 Name:		snmppd
 Version:	0.5.2
-Release:	%mkrel 7
+Release:	%mkrel 8
 License:	GPL
 Group:		System/Servers
 URL:		http://bubble.nsys.by/
