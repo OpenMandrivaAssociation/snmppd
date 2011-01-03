@@ -1,7 +1,7 @@
 Summary:	SNMP proxy daemon
 Name:		snmppd
 Version:	0.5.2
-Release:	%mkrel 10
+Release:	%mkrel 11
 License:	GPL
 Group:		System/Servers
 URL:		http://bubble.nsys.by/
@@ -15,7 +15,7 @@ Patch2:		snmppd-0.5.1-config_file_location_fix.diff
 Patch3:		snmppd-0.5.1-antibork_1.diff
 Patch4:		snmppd-compile_fix.diff
 BuildRequires:	autoconf2.5
-BuildRequires:	automake1.7
+BuildRequires:	automake
 BuildRequires:	net-snmp-devel
 BuildRequires:	openssl-devel
 Requires:	nagios
@@ -65,7 +65,7 @@ perl -pi -e "s|_LIBDIR_|%{_libdir}|g" *.cfg
 
 %build
 rm -f configure
-libtoolize --force --copy; aclocal-1.7 -I config; autoheader; automake-1.7 --add-missing --copy --foreign; autoconf
+libtoolize --force --copy; aclocal -I config; autoheader; automake --add-missing --copy --foreign; autoconf
 
 pushd libsplit-0.2
 %make C_FLAGS="%{optflags} -fPIC" libsplit.a
