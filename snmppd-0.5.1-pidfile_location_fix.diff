@@ -1,0 +1,8 @@
+--- snmppd/snmppd.conf	2005-03-14 14:49:37.000000000 +0100
++++ snmppd/snmppd.conf.oden	2005-08-05 14:57:55.000000000 +0200
+@@ -21,4 +21,4 @@
+ # this can be syslog, stdout, stderr or some filename
+ LogFile			syslog
+ # Make sure user snmppd runs under can write there
+-PidFile			/var/run/snmppd/snmppd.conf
++PidFile			/var/run/snmppd/snmppd.pid

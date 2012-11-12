@@ -1,0 +1,39 @@
+--- configure.in	2006-05-10 16:59:41.000000000 +0200
++++ configure.in.oden	2007-02-02 18:18:03.000000000 +0100
+@@ -13,36 +13,6 @@
+ AC_PROG_LN_S
+ AC_PROG_RANLIB
+ 
+-
+-dnl Compilation Setup
+-AC_MSG_CHECKING([whether to enable -Wall])
+-AC_ARG_ENABLE(warnings,
+-  [  --enable-warnings       Enable -Wall if using gcc.],
+-  [ if test -n "$GCC"; then
+-    AC_MSG_RESULT(adding -Wall to CFLAGS.)
+-    PROG_CFLAGS="$PROG_CFLAGS -Wall"
+-    fi],AC_MSG_RESULT(no))
+-
+-AC_ARG_ENABLE(more-warnings,
+-[  --enable-more-warnings  Enable maximum compiler warnings [default=yes]],
+-set_more_warnings="$enableval", set_more_warnings=yes)
+-
+-if test "$GCC" = "yes" -a "$set_more_warnings" = "yes"; then
+-        PROG_CFLAGS="$PROG_CFLAGS \
+--Wall -Wno-uninitialized \
+--Wchar-subscripts -Wmissing-declarations -Wmissing-prototypes \
+--Wnested-externs -Wpointer-arith \
+--Wno-sign-compare -Werror"
+-fi
+-
+-AC_MSG_CHECKING([whether to enable debug])
+-AC_ARG_ENABLE(debug,
+-  [  --enable-debug       Enable debug],
+-  [  if test -n "$GCC"; then
+-    AC_MSG_RESULT(adding -DDEBUG -g -ggdb to CFLAGS.)
+-    PROG_CFLAGS="$PROG_CFLAGS -DDEBUG -g -ggdb"
+-    fi], [AC_MSG_RESULT(no) PROG_CFLAGS="$PROG_CFLAGS -O2" LDFLAGS="$LDFLAGS -s"])
+-
+ AC_ARG_WITH(snmp,
+    [  --with-snmp=PATH        SNMP path [default=/usr/local]],,)
+ 

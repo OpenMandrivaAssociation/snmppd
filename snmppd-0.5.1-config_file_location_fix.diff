@@ -1,0 +1,11 @@
+--- snmppd/snmppd.h	2006-05-10 16:40:05.000000000 +0200
++++ snmppd/snmppd.h.oden	2009-10-15 18:34:56.000000000 +0200
+@@ -34,7 +34,7 @@
+ #define PACKAGE "snmppd"
+ #define VERSION "0.5.2"
+ 
+-#define CONFIG_FILE "/etc/snmppd/snmppd.conf"
++#define CONFIG_FILE "/etc/snmppd.conf"
+ 
+ 
+ /* Typedefs */

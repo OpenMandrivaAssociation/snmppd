@@ -1,0 +1,6 @@
+sources:
+  "check_snmpp.cfg:"	acb4a10dee340c09e525b50d78d72f719b746366
+  "check_snmpp.conf.README:"	1c29edff95c7f2d22815bbe76c103e6cf3ef49ef
+  "libsplit-0.2.tar.bz2:"	c636baf47fb8371bf8e6435701cc07c27b16f21f
+  "snmppd-0.5.2.tar.bz2:"	b53980c176dfabd7e747a38e6d43ead96c7561cb
+  "snmppd.init:"	ef4f70aaa2fbe85dd58f047a35c0d93dbb02a1f2
