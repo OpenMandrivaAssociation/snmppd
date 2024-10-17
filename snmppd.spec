@@ -4,7 +4,7 @@ Version:	0.5.2
 Release:	%mkrel 12
 License:	GPL
 Group:		System/Servers
-URL:		http://bubble.nsys.by/
+URL:		https://bubble.nsys.by/
 Source0:	http://bubble.nsys.by/projects/snmppd/%{name}-%{version}.tar.bz2
 Source1:	%{name}.init
 Source2:	http://bubble.nsys.by/projects/libsplit/libsplit-0.2.tar.bz2
